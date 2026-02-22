@@ -103,7 +103,7 @@ CONFIG_FILE="$CONFIG_DIR/config.zsh"
 mkdir -p "$CONFIG_DIR"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
-  cat > "$CONFIG_FILE" << CONF
+  cat > "$CONFIG_FILE" << 'EOF'
 # zsh-ai-assistant user config
 # This file is loaded by the plugin and overrides defaults.
 # Re-run install.sh to regenerate, or edit manually.
@@ -129,7 +129,7 @@ ZSH_AI_RPROMPT=1
 # ZSH_AI_KEY_EXPLAIN="^L"      # Ctrl-L  → Explain last command
 # ZSH_AI_KEY_FIX="^K"          # Ctrl-K  → Fix last failed command
 # ZSH_AI_KEY_EXPLAIN_BUF="^J"  # Ctrl-J  → Explain buffer
-CONF
+EOF
   success "Config written to $CONFIG_FILE"
 else
   info "Config already exists at $CONFIG_FILE — skipping (edit manually to change settings)"

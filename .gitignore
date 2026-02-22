@@ -1,0 +1,19 @@
+# zsh-ai-assistant .gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temp files
+/tmp/
+*.tmp
+
+# Don't commit user config (it lives at ~/.config/zsh-ai-assistant/)
+user.config.zsh

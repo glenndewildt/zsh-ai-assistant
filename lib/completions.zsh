@@ -166,7 +166,8 @@ ai_suggest_command() {
   # ── 9. Present via fzf or numbered menu
   local selected=""
 
-  if command -v fzf > /dev/null 2>&1; then
+  if command -v fzf >/dev/null 2>&1; then
+    # fzf takes over the terminal — tell ZLE we're doing that
     zle -I
     local fzf_preview
     if [[ -n "$full_current_token" ]]; then
@@ -177,29 +178,32 @@ ai_suggest_command() {
       fzf_preview="printf '❯ %s\n' '${before_cursor}${_fsep}{}${after_word}'"
     fi
 
+    # Both stdin and stdout go through /dev/tty so fzf owns the terminal cleanly
     selected=$(printf '%s\n' "$cleaned" | fzf \
       --prompt="complete ❯ " \
       --height=14 --layout=reverse --border=rounded \
       --info=hidden \
       --preview="$fzf_preview" --preview-window="up:1:wrap" \
       --header="↵ select   ESC cancel" \
-      2>/dev/tty)
+      </dev/tty 2>/dev/tty)
   else
-    echo ""
+    # Numbered menu fallback — all output to /dev/tty
+    zle -I
+    printf '\n' >/dev/tty
     local i=1 lines=()
     while IFS= read -r line; do
       [[ -z "$line" ]] && continue
       if [[ -n "$full_current_token" ]]; then
-        print -P "  %F{green}${i})%f ${prefix_before_token}%F{yellow}${line}%f${after_word}"
+        print -P "  %F{green}${i})%f ${prefix_before_token}%F{yellow}${line}%f${after_word}" >/dev/tty
       else
         local _sep=" "; [[ "$before_cursor" == *" " ]] && _sep=""
-        print -P "  %F{green}${i})%f ${before_cursor}${_sep}%F{yellow}${line}%f${after_word}"
+        print -P "  %F{green}${i})%f ${before_cursor}${_sep}%F{yellow}${line}%f${after_word}" >/dev/tty
       fi
       lines+=("$line"); (( i++ ))
     done <<< "$cleaned"
 
-    echo -n "  Choice [1-${#lines[@]}] (0 cancel): "
-    local choice; read -r choice < /dev/tty
+    printf '  Choice [1-%d] (0 cancel): ' "${#lines[@]}" >/dev/tty
+    local choice; read -r choice </dev/tty
     if [[ "$choice" =~ ^[1-9][0-9]*$ ]] && (( choice >= 1 && choice <= ${#lines[@]} )); then
       selected="${lines[$choice]}"
     fi

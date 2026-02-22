@@ -40,7 +40,7 @@ All shortcuts are **fully configurable**. See [Configuration](#configuration).
 ### One-liner (recommended)
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/glenndewildt/zsh-ai-assistant/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/glenndewildt/zsh-ai-assistant/refs/heads/master/install.sh)
 ```
 
 The installer will:
@@ -231,7 +231,7 @@ zsh-ai-assistant/
 git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-ai-assistant pull
 
 # Or re-run the installer (it updates in place):
-bash <(curl -fsSL https://raw.githubusercontent.com/glenndewildt/zsh-ai-assistant/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/glenndewildt/zsh-ai-assistant/refs/heads/master/install.sh)
 ```
 
 ---
@@ -250,7 +250,6 @@ PRs welcome! Ideas for contribution:
 - Add more entries to the static completions table in `lib/completions.zsh`
 - Add support for new package managers / tools
 - Improve the AI prompts for better output quality
-- Add a test suite
 
 Please open an issue before starting large changes.
 

@@ -19,9 +19,9 @@
 : "${ZSH_AI_KEY_EXPLAIN_BUF:=^J}" # Ctrl-J  → Explain buffer command
 
 # ── Timeouts (seconds)
-: "${ZSH_AI_TIMEOUT_COMPLETE:=6}"
-: "${ZSH_AI_TIMEOUT_COMMAND:=15}"
-: "${ZSH_AI_TIMEOUT_EXPLAIN:=30}"
+: "${ZSH_AI_TIMEOUT_COMPLETE:=5}"
+: "${ZSH_AI_TIMEOUT_COMMAND:=5}"
+: "${ZSH_AI_TIMEOUT_EXPLAIN:=15}"
 
 # ── Token limits
 : "${ZSH_AI_TOKENS_COMPLETE:=120}"
